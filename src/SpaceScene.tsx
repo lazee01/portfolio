@@ -1,6 +1,6 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useMemo, useRef } from 'react'
-import type { Group, Mesh, Points } from 'three'
+import type { Group, Mesh, MeshStandardMaterial, Points } from 'three'
 import type { ThreeElements } from '@react-three/fiber'
 
 declare global {
@@ -11,17 +11,33 @@ declare global {
 
 function NeuralCore() {
   const mesh = useRef<Mesh>(null)
+  const material = useRef<MeshStandardMaterial>(null)
 
-  useFrame((_, delta) => {
+  useFrame(({ clock }, delta) => {
     if (!mesh.current) return
     mesh.current.rotation.y += delta * 0.22
     mesh.current.rotation.x += delta * 0.08
+    mesh.current.scale.setScalar(1 + Math.sin(clock.getElapsedTime() * 1.7) * 0.035)
+    if (material.current) material.current.emissiveIntensity = 1.25 + Math.sin(clock.getElapsedTime() * 2) * 0.2
   })
 
   return (
     <mesh ref={mesh}>
       <icosahedronGeometry args={[1.2, 2]} />
-      <meshStandardMaterial color="#173b5a" emissive="#0b758f" emissiveIntensity={1.4} roughness={0.25} metalness={0.65} wireframe />
+      <meshStandardMaterial ref={material} color="#173b5a" emissive="#0b758f" emissiveIntensity={1.4} roughness={0.25} metalness={0.65} wireframe />
+    </mesh>
+  )
+}
+
+function OrbitalRing({ radius, rotation, color }: { radius: number; rotation: [number, number, number]; color: string }) {
+  const ring = useRef<Mesh>(null)
+  useFrame((_, delta) => {
+    if (ring.current) ring.current.rotation.z += delta * 0.08
+  })
+  return (
+    <mesh ref={ring} rotation={rotation}>
+      <torusGeometry args={[radius, 0.008, 8, 96]} />
+      <meshBasicMaterial color={color} transparent opacity={0.46} />
     </mesh>
   )
 }
@@ -86,6 +102,8 @@ function InteractiveSpace() {
   return (
     <group ref={group}>
       <NeuralCore />
+      <OrbitalRing radius={1.48} rotation={[0.72, 0.2, 0.1]} color="#67e8f9" />
+      <OrbitalRing radius={1.82} rotation={[-0.42, 0.55, 0.8]} color="#aa8bfa" />
       <OrbitingSignal radius={1.9} speed={0.52} color="#67e8f9" />
       <OrbitingSignal radius={1.55} speed={-0.78} color="#aa8bfa" />
       <OrbitingSignal radius={2.2} speed={0.32} color="#d9f99d" />
