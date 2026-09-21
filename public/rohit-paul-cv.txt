@@ -19,7 +19,7 @@ Developing a scientific literature QA system with PDF processing, chunking, embe
 EDUCATION
 Brainware University — B.Tech CSE (AI & ML), 2024–2027
 Brainware University — Diploma CSE, 2021–2024, CGPA 6.5/10
-Barrackpore A. B. Model High School — H.S., 2021, WBBSE 67%
+Barrackpore A. B. Model High School — Class 10, 2021, WBBSE 67%
 
 CERTIFICATION
 Elements of AI — University of Helsinki, Sep 2026

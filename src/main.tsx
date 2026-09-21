@@ -17,7 +17,7 @@ const capabilities = [
 const education = [
   ['2024 — 2027', 'B.Tech CSE — AI & ML', 'Brainware University', 'Building depth across machine learning, deep learning, NLP, generative AI, databases, and statistical analysis.'],
   ['2021 — 2024', 'Diploma CSE', 'Brainware University', 'CGPA 6.5 / 10 · Core foundation in programming, data structures, databases, and software development.'],
-  ['2021', 'Higher Secondary (H.S.)', 'Barrackpore A. B. Model High School', 'WBBSE · 67%'],
+  ['2021', 'Class 10', 'Barrackpore A. B. Model High School', 'WBBSE · 67%'],
 ]
 type Project = {
   title: string
