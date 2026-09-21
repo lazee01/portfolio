@@ -56,12 +56,20 @@ function App() {
       const sections = [...document.querySelectorAll('main section[id]')]
       const current = sections.find((section) => window.scrollY >= (section as HTMLElement).offsetTop - 180)
       if (current) setActiveSection(current.id)
+      document.documentElement.style.setProperty('--scroll-progress', `${Math.min(window.scrollY / Math.max(document.body.scrollHeight - window.innerHeight, 1), 1)}`)
     }
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible')
+      })
+    }, { threshold: 0.12 })
+    document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element))
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     return () => {
       window.removeEventListener('scroll', onScroll)
       mediaQuery.removeEventListener('change', updateMobile)
+      revealObserver.disconnect()
     }
   }, [])
 
@@ -113,6 +121,9 @@ function App() {
           </motion.div>
           <div className="hero-art" aria-hidden="true">
             {reducedMotion !== true && !isMobile && <Suspense fallback={null}><SpaceScene /></Suspense>}
+            <div className="hero-hud hud-top"><span>NEURAL FIELD / 01</span><b>ACTIVE</b></div>
+            <div className="hero-hud hud-side"><span>LATENCY</span><b>18ms</b><span>VECTOR DEPTH</span><b>04.8</b></div>
+            <div className="lens-flare" />
             <div className="particle-field"><i /><i /><i /><i /><i /><i /><i /><i /></div>
             <div className="orbital orbital-outer"><span className="orbit-node node-a" /><span className="orbit-node node-b" /></div>
             <div className="orbital orbital-middle"><span className="orbit-node node-c" /></div>
@@ -124,7 +135,7 @@ function App() {
           <a className="scroll-cue" href="#about"><span>Scroll to explore</span><ChevronDown size={16} /></a>
         </section>
 
-        <section className="about section-wrap" id="about" aria-labelledby="about-title">
+        <section className="about section-wrap reveal" id="about" aria-labelledby="about-title">
           <div className="section-kicker">01 — THE HUMAN BEHIND THE MODELS</div>
           <div className="about-grid">
             <div><h2 id="about-title">Curious by default.<br /><span>Rigorous by design.</span></h2></div>
@@ -136,18 +147,18 @@ function App() {
           </div>
         </section>
 
-        <section className="skills section-wrap" id="skills" aria-labelledby="skills-title">
+        <section className="skills section-wrap reveal" id="skills" aria-labelledby="skills-title">
           <div className="section-heading"><div><div className="section-kicker">02 — MY TOOLBOX</div><h2 id="skills-title">Built to go from <span>notebook to north star.</span></h2></div><p>Tools are only useful when they help ideas travel further. This is the stack I use to get there.</p></div>
           <div className="skill-grid">{skillGroups.map(({ icon: Icon, title, accent, items }) => <article className={`skill-card ${accent}`} key={title}><div className="skill-icon"><Icon size={21} /></div><h3>{title}</h3><div className="tag-list">{items.map((item) => <span key={item}>{item}</span>)}</div></article>)}</div>
         </section>
 
-        <section className="experience section-wrap" id="experience" aria-labelledby="experience-title">
+        <section className="experience section-wrap reveal" id="experience" aria-labelledby="experience-title">
           <div className="section-kicker">03 — THE ROAD SO FAR</div>
           <div className="experience-heading"><h2 id="experience-title">Learning in <span>layers.</span></h2><p>Every chapter adds a new way to frame the problem.</p></div>
           <div className="timeline">{timeline.map((item, index) => <article className="timeline-item" key={item.title}><div className="timeline-marker"><span>0{index + 1}</span></div><div className="timeline-date">{item.date}</div><div className="timeline-content"><h3>{item.title}</h3><p className="timeline-org">{item.org}</p><p>{item.detail}</p></div></article>)}</div>
         </section>
 
-        <section className="projects section-wrap" id="projects" aria-labelledby="projects-title">
+        <section className="projects section-wrap reveal" id="projects" aria-labelledby="projects-title">
           <div className="section-kicker">04 — SELECTED PROJECT</div>
           <article className="project-feature" aria-labelledby="projects-title">
             <div className="project-visual"><div className="visual-grid" /><div className="graph-line line-one" /><div className="graph-line line-two" /><div className="graph-node graph-main"><Database size={22} /><span>GraphMind</span></div><div className="graph-node graph-small small-one">PDF</div><div className="graph-node graph-small small-two">FAISS</div><div className="graph-node graph-small small-three">Neo4j</div><div className="visual-caption">EVIDENCE / RETRIEVAL / REASONING</div></div>
@@ -155,11 +166,11 @@ function App() {
           </article>
         </section>
 
-        <section className="education section-wrap">
+        <section className="education section-wrap reveal">
           <div className="education-card"><div><div className="section-kicker">05 — LEARNING NEVER STOPS</div><h2>Certified curiosity.</h2></div><div className="cert-detail"><div className="cert-seal"><Orbit size={22} /></div><div><h3>Elements of AI</h3><p>University of Helsinki · Sep 2026</p><small>Credential ID: 6tfcqp4lrry</small></div></div><div className="coursework"><span>Coursework</span><p>ML · DL · NLP · GenAI · LLMs · DSA · DBMS · Python · Statistics / Data Analysis</p></div></div>
         </section>
 
-        <section className="contact section-wrap" id="contact" aria-labelledby="contact-title">
+        <section className="contact section-wrap reveal" id="contact" aria-labelledby="contact-title">
           <div className="contact-card"><div className="contact-copy"><div className="section-kicker">06 — HAVE A QUESTION?</div><h2 id="contact-title">Let’s make<br /><span>something meaningful.</span></h2><p>Whether you want to talk about an AI idea, a collaboration, or the future of intelligent systems — my inbox is open.</p><a className="email-link" href="mailto:rohgaming01@gmail.com">rohgaming01@gmail.com <ArrowUpRight size={17} /></a></div><div className="contact-aside"><div className="contact-orb"><Send size={28} /></div><span>Available for meaningful<br />conversations.</span><div className="socials"><a href="mailto:rohgaming01@gmail.com" aria-label="Email Rohit"><Mail size={18} /></a><a href="tel:+917003762633" aria-label="Call Rohit"><Phone size={18} /></a><a href="https://github.com/lazee01/portfolio" target="_blank" rel="noreferrer" aria-label="Rohit's GitHub repository"><Github size={18} /></a></div></div></div>
         </section>
       </main>
