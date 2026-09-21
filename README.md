@@ -43,4 +43,4 @@ DNS propagation can take up to 48 hours. Once GitHub Pages verifies the domain, 
 
 ## Content notes
 
-The site uses only the supplied CV details. GitHub and LinkedIn links are intentionally generic placeholders because profile URLs were not included; replace them in `src/main.jsx` when available.
+The site uses only the supplied CV details. To add another project, add one object to the typed `projects` array near the top of `src/main.tsx` with its `title`, `description`, `stack`, `status`, `repoUrl`, optional `demoUrl`, and visual `accent`. Project cards render automatically; use the existing `visual: 'graphmind'` value only for the bespoke GraphMind visual treatment. Keep repository and demo URLs accurate and omit `demoUrl` when one is not available.
