@@ -80,7 +80,7 @@ function App() {
         </section>
 
         <section className="contact-stage stage" id="contact">
-          <div className="contact-glow" /><div className="section-index">05 <span>/ OPEN CHANNEL</span></div><div className="contact-layout"><h2>Let’s make<br /><em>something real.</em></h2><div><p>Have an AI idea, a collaboration, or a question about intelligent systems? My inbox is open.</p><a className="contact-email" href="mailto:rohgaming01@gmail.com">rohgaming01@gmail.com <ArrowUpRight size={18} /></a><div className="contact-links"><a href="mailto:rohgaming01@gmail.com"><Mail size={16} /> Email</a><a href="tel:+917003762633"><Phone size={16} /> Call</a><a href="https://github.com/lazee01/portfolio" target="_blank" rel="noreferrer"><Github size={16} /> GitHub</a></div></div></div></section>
+          <div className="contact-glow" /><div className="section-index">05 <span>/ OPEN CHANNEL</span></div><div className="contact-layout"><h2>Let’s make<br /><em>something real.</em></h2><div><p>Have an AI idea, a collaboration, or a question about intelligent systems? My inbox is open.</p><a className="contact-email" href="mailto:rohgaming01@gmail.com">rohgaming01@gmail.com <ArrowUpRight size={18} /></a><div className="contact-links"><a href="mailto:rohgaming01@gmail.com"><Mail size={16} /> Email</a><a href="tel:+917003762633"><Phone size={16} /> Call</a><a href="https://github.com/lazee01" target="_blank" rel="noreferrer" aria-label="Open Rohit Paul's GitHub profile"><Github size={16} /> GitHub profile</a></div></div></div></section>
       </main>
       <footer><span>© 2026 ROHIT PAUL / AI & ML</span><span>Built for the next question <Sparkles size={13} /></span><a href="#top">↑ Top</a></footer>
     </div>
