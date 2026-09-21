@@ -3,10 +3,11 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { createRoot } from 'react-dom/client'
 import { ArrowDownRight, ArrowUpRight, BrainCircuit, Check, Download, Github, Mail, Menu, Orbit, Phone, Send, Sparkles, X } from 'lucide-react'
 import './styles.css'
+import './projects.css'
 
 const SpaceScene = lazy(() => import('./SpaceScene').then(({ SpaceScene }) => ({ default: SpaceScene })))
 
-const nav = ['about', 'capabilities', 'graphmind', 'journey', 'contact']
+const nav = ['about', 'capabilities', 'projects', 'journey', 'contact']
 const capabilities = [
   ['01', 'Language systems', 'Python · SQL · NLP · LLMs · embeddings', 'cyan'],
   ['02', 'Neural intelligence', 'ML · DL · PyTorch · Transformers · evaluation', 'violet'],
@@ -17,6 +18,28 @@ const education = [
   ['2024 — 2027', 'B.Tech CSE — AI & ML', 'Brainware University', 'Building depth across machine learning, deep learning, NLP, generative AI, databases, and statistical analysis.'],
   ['2021 — 2024', 'Diploma CSE', 'Brainware University', 'CGPA 6.5 / 10 · Core foundation in programming, data structures, databases, and software development.'],
   ['2021', 'Higher Secondary (H.S.)', 'Barrackpore A. B. Model High School', 'WBBSE · 67%'],
+]
+type Project = {
+  title: string
+  description: string
+  stack: string[]
+  status: string
+  repoUrl: string
+  demoUrl?: string
+  accent: 'cyan' | 'violet' | 'lime' | 'orange'
+  visual?: 'graphmind'
+}
+
+const projects: Project[] = [
+  {
+    title: 'GraphMind',
+    description: 'A scientific literature QA system combining RAG, vector retrieval, knowledge graphs, hierarchical retrieval, and multi-agent reasoning to turn dense PDFs into answers that show their evidence.',
+    stack: ['Python', 'RAG', 'FAISS', 'Neo4j', 'Multi-agent systems'],
+    status: 'In progress',
+    repoUrl: 'https://github.com/lazee01/graphmind',
+    accent: 'cyan',
+    visual: 'graphmind',
+  },
 ]
 
 function App() {
@@ -51,7 +74,7 @@ function App() {
             <p className="kicker"><span className="pulse-dot" /> AI / ML ENGINEER · GENERATIVE AI · NLP</p>
             <motion.h1 initial={reducedMotion ? false : { opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9 }}>Building<br /><i>systems</i> that<br /><strong>think deeper.</strong></motion.h1>
             <p className="hero-intro">Rohit Paul is an AI/ML Engineer exploring the frontier where language, knowledge, and reliable systems converge.</p>
-            <div className="hero-cta"><a className="primary-cta" href="#graphmind">Enter GraphMind <ArrowDownRight size={17} /></a><a className="text-cta" href="mailto:rohgaming01@gmail.com">Start a conversation <ArrowUpRight size={15} /></a></div>
+            <div className="hero-cta"><a className="primary-cta" href="#projects">Explore projects <ArrowDownRight size={17} /></a><a className="text-cta" href="mailto:rohgaming01@gmail.com">Start a conversation <ArrowUpRight size={15} /></a></div>
           </div>
           <div className="hero-readout"><span>FIELD 001</span><b>ONLINE</b><small>INTERACTIVE NEURAL SPACE</small></div>
           <a className="hero-scroll" href="#about"><span>Scroll / navigate the field</span><ArrowDownRight size={18} /></a>
@@ -68,9 +91,15 @@ function App() {
           <div className="capability-list">{capabilities.map(([number, title, detail, tone]) => <article className={`capability ${tone}`} key={number}><span className="cap-number">{number}</span><h3>{title}</h3><p>{detail}</p><ArrowUpRight size={18} /></article>)}</div>
         </section>
 
-        <section className="graphmind-stage stage" id="graphmind">
-          <div className="section-index">03 <span>/ FLAGSHIP SYSTEM</span></div>
-          <div className="graphmind-layout"><div className="graphmind-art" aria-hidden="true"><div className="art-orbit orbit-a" /><div className="art-orbit orbit-b" /><div className="art-core"><BrainCircuit size={32} /></div><div className="art-node node-pdf">PDF</div><div className="art-node node-faiss">FAISS</div><div className="art-node node-neo">NEO4J</div><span className="art-line line-a" /><span className="art-line line-b" /><span className="art-line line-c" /></div><div className="graphmind-copy"><p className="kicker">RESEARCH ASSISTANT / IN PROGRESS</p><h2>Graph<br /><em>Mind.</em></h2><h3>Scientific Literature QA System</h3><p>A research assistant that combines RAG, vector retrieval, knowledge graphs, hierarchical retrieval, and multi-agent reasoning to turn dense PDFs into answers that show their evidence.</p><div className="check-list"><span><Check size={14} /> Evidence-grounded verification</span><span><Check size={14} /> Citation tracking & graph reasoning</span><span><Check size={14} /> Query planning across retrieval layers</span></div><a className="primary-cta small" href="https://github.com/lazee01/graphmind" target="_blank" rel="noreferrer">View GraphMind repository <Github size={15} /></a></div></div>
+        <section className="projects-stage stage" id="projects">
+          <div className="section-index">03 <span>/ SELECTED PROJECTS</span></div>
+          <div className="stage-heading"><h2>Systems built<br /><em>to go deeper.</em></h2><p>A growing archive of experiments and production-minded AI systems. Each project is one object in the typed <code>projects</code> array.</p></div>
+          <div className="project-list">
+            {projects.map((project) => <article className={`project-card ${project.accent}`} id={project.title === 'GraphMind' ? 'graphmind' : undefined} key={project.title}>
+              {project.visual === 'graphmind' && <div className="graphmind-art" aria-hidden="true"><div className="art-orbit orbit-a" /><div className="art-orbit orbit-b" /><div className="art-core"><BrainCircuit size={32} /></div><div className="art-node node-pdf">PDF</div><div className="art-node node-faiss">FAISS</div><div className="art-node node-neo">NEO4J</div><span className="art-line line-a" /><span className="art-line line-b" /><span className="art-line line-c" /></div>}
+              <div className="project-copy"><div className="project-meta"><span>{project.status}</span><span>{project.accent.toUpperCase()} / {String(projects.indexOf(project) + 1).padStart(2, '0')}</span></div><h3>{project.title}</h3><p>{project.description}</p><div className="project-stack">{project.stack.map((item) => <span key={item}>{item}</span>)}</div><div className="project-links"><a className="primary-cta small" href={project.repoUrl} target="_blank" rel="noreferrer" aria-label={`View ${project.title} repository`}>View {project.title} repository <Github size={15} /></a>{project.demoUrl && <a className="text-cta" href={project.demoUrl} target="_blank" rel="noreferrer">Live demo <ArrowUpRight size={14} /></a>}</div></div>
+            </article>)}
+          </div>
         </section>
 
         <section className="journey-stage stage" id="journey">
