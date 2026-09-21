@@ -4,20 +4,33 @@ import { createRoot } from 'react-dom/client'
 import { ArrowDownRight, ArrowUpRight, BrainCircuit, Check, Download, Github, Mail, Menu, Orbit, Phone, Send, Sparkles, X } from 'lucide-react'
 import './styles.css'
 import './projects.css'
+import './skills.css'
 
 const SpaceScene = lazy(() => import('./SpaceScene').then(({ SpaceScene }) => ({ default: SpaceScene })))
 
 const nav = ['about', 'capabilities', 'projects', 'journey', 'contact']
-const capabilities = [
-  ['01', 'Language systems', 'Python · SQL · NLP · LLMs · embeddings', 'cyan'],
-  ['02', 'Neural intelligence', 'ML · DL · PyTorch · Transformers · evaluation', 'violet'],
-  ['03', 'Retrieval architecture', 'RAG · FAISS · LangGraph · Neo4j · agents', 'lime'],
-  ['04', 'Production thinking', 'FastAPI · Docker · MLflow · DVC · AWS', 'orange'],
+type SkillCategory = {
+  number: string
+  title: string
+  accent: 'cyan' | 'violet' | 'lime' | 'orange'
+  skills: string[]
+}
+
+const skillCategories: SkillCategory[] = [
+  { number: '01', title: 'Programming', accent: 'cyan', skills: ['Python', 'SQL', 'Data Structures and Algorithms'] },
+  { number: '02', title: 'Machine Learning', accent: 'violet', skills: ['Machine Learning', 'Deep Learning', 'Natural Language Processing', 'Large Language Models', 'Embeddings', 'Model Evaluation'] },
+  { number: '03', title: 'Data Science', accent: 'lime', skills: ['NumPy', 'Pandas', 'Matplotlib', 'Seaborn', 'scikit-learn'] },
+  { number: '04', title: 'Deep Learning', accent: 'orange', skills: ['PyTorch', 'Neural Networks', 'Transformers'] },
+  { number: '05', title: 'Generative AI', accent: 'cyan', skills: ['RAG', 'Hugging Face', 'LangChain', 'LangGraph', 'FAISS', 'Multi-Agent Systems'] },
+  { number: '06', title: 'Knowledge Retrieval', accent: 'violet', skills: ['Vector Search', 'Knowledge Graphs', 'Neo4j', 'Hierarchical Retrieval'] },
+  { number: '07', title: 'Backend & Deployment', accent: 'lime', skills: ['FastAPI', 'Docker'] },
+  { number: '08', title: 'MLOps & Cloud', accent: 'orange', skills: ['MLflow', 'DVC', 'AWS', 'CI/CD Fundamentals'] },
+  { number: '09', title: 'Developer Tools', accent: 'cyan', skills: ['Git', 'GitHub', 'Jupyter Notebook', 'VS Code'] },
 ]
 const education = [
   ['2024 — 2027', 'B.Tech CSE — AI & ML', 'Brainware University', 'Building depth across machine learning, deep learning, NLP, generative AI, databases, and statistical analysis.'],
   ['2021 — 2024', 'Diploma CSE', 'Brainware University', 'CGPA 6.5 / 10 · Core foundation in programming, data structures, databases, and software development.'],
-  ['2021', 'Class 10', 'Barrackpore A. B. Model High School', 'WBBSE · 67%'],
+  ['2021', 'Class 10', 'Barrackpore A. B. Model High School (H.S.)', 'WBBSE · 67%'],
 ]
 type Project = {
   title: string
@@ -87,8 +100,8 @@ function App() {
 
         <section className="capability-stage stage" id="capabilities">
           <div className="section-index">02 <span>/ CAPABILITIES</span></div>
-          <div className="stage-heading"><h2>The stack behind<br /><em>the signal.</em></h2><p>Tools are a means. The point is to turn ambiguity into an intelligent, dependable system.</p></div>
-          <div className="capability-list">{capabilities.map(([number, title, detail, tone]) => <article className={`capability ${tone}`} key={number}><span className="cap-number">{number}</span><h3>{title}</h3><p>{detail}</p><ArrowUpRight size={18} /></article>)}</div>
+          <div className="stage-heading"><h2>The stack behind<br /><em>the signal.</em></h2><p>Every skill from the CV, arranged as a clear technical index — from foundations and modeling to retrieval, deployment, and tooling.</p></div>
+          <div className="skill-grid">{skillCategories.map((category) => <article className={`skill-category ${category.accent}`} key={category.number}><div className="skill-category-head"><span className="cap-number">{category.number}</span><h3>{category.title}</h3><ArrowUpRight size={17} /></div><ul>{category.skills.map((skill) => <li key={skill}>{skill}</li>)}</ul></article>)}</div>
         </section>
 
         <section className="projects-stage stage" id="projects">

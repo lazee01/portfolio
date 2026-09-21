@@ -1,0 +1,79 @@
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  margin-top: 70px;
+}
+
+.skill-category {
+  min-height: 205px;
+  padding: 25px;
+  border: 1px solid var(--line);
+  background: rgba(11, 16, 28, .64);
+  transition: transform .3s, border-color .3s, background .3s;
+}
+
+.skill-category:hover {
+  transform: translateY(-4px);
+  background: rgba(24, 36, 61, .72);
+}
+
+.skill-category.cyan:hover { border-color: rgba(103, 232, 249, .48); }
+.skill-category.violet:hover { border-color: rgba(181, 161, 255, .48); }
+.skill-category.lime:hover { border-color: rgba(217, 249, 157, .48); }
+.skill-category.orange:hover { border-color: rgba(255, 181, 122, .48); }
+
+.skill-category-head {
+  display: grid;
+  grid-template-columns: 32px 1fr 18px;
+  align-items: start;
+  gap: 10px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.skill-category-head h3 {
+  margin: 0;
+  color: var(--paper);
+  font: 600 18px 'Space Grotesk';
+}
+
+.skill-category.cyan .skill-category-head h3,
+.skill-category.cyan .skill-category-head svg { color: var(--cyan); }
+.skill-category.violet .skill-category-head h3,
+.skill-category.violet .skill-category-head svg { color: var(--violet); }
+.skill-category.lime .skill-category-head h3,
+.skill-category.lime .skill-category-head svg { color: var(--lime); }
+.skill-category.orange .skill-category-head h3,
+.skill-category.orange .skill-category-head svg { color: var(--orange); }
+
+.skill-category ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 18px 0 0;
+  margin: 0;
+  list-style: none;
+}
+
+.skill-category li {
+  padding: 7px 8px;
+  color: #aeb7c5;
+  border: 1px solid #29384b;
+  font: 10px 'DM Mono';
+  line-height: 1.25;
+}
+
+@media (max-width: 1000px) {
+  .skill-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 800px) {
+  .skill-grid { grid-template-columns: 1fr; margin-top: 45px; }
+  .skill-category { min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-category { transition: none; }
+  .skill-category:hover { transform: none; }
+}
