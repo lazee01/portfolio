@@ -77,3 +77,30 @@
   .skill-category { transition: none; }
   .skill-category:hover { transform: none; }
 }
+
+.coursework-band {
+  margin-top: 45px;
+  padding-top: 25px;
+  border-top: 1px solid var(--line);
+}
+
+.coursework-band small {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--cyan);
+  font: 9px 'DM Mono';
+  letter-spacing: .13em;
+}
+
+.coursework-band div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.coursework-band span {
+  padding: 8px 10px;
+  border: 1px solid #29384b;
+  color: #aeb7c5;
+  font: 10px 'DM Mono';
+}

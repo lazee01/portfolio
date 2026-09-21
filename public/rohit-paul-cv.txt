@@ -9,7 +9,15 @@ SUMMARY
 AI/ML Engineer fresher with a foundation in Python, machine learning, deep learning, NLP, and LLMs. Interested in reliable, scalable, production-oriented AI, GenAI, NLP, and retrieval systems.
 
 SKILLS
-Python, SQL, DSA, NumPy, Pandas, Matplotlib, Seaborn, scikit-learn, PyTorch, Transformers, Hugging Face, RAG, FAISS, LangChain, LangGraph, knowledge graphs, Neo4j, multi-agent systems, FastAPI, Docker, MLflow, DVC, AWS, CI/CD, Git, GitHub.
+Programming: Python, SQL, Data Structures and Algorithms
+Machine Learning: Machine Learning, Deep Learning, Natural Language Processing, Large Language Models, Embeddings, Model Evaluation
+Data Science: NumPy, Pandas, Matplotlib, Seaborn, scikit-learn
+Deep Learning: PyTorch, Neural Networks, Transformers
+Generative AI: RAG, Hugging Face, LangChain, LangGraph, FAISS, Multi-Agent Systems
+Knowledge Retrieval: Vector Search, Knowledge Graphs, Neo4j, Hierarchical Retrieval
+Backend & Deployment: FastAPI, Docker
+MLOps & Cloud: MLflow, DVC, AWS, CI/CD Fundamentals
+Developer Tools: Git, GitHub, Jupyter Notebook, VS Code
 
 PROJECT
 GraphMind — Scientific Literature QA System
@@ -24,3 +32,6 @@ Barrackpore A. B. Model High School (H.S.) — Class 10, 2021, WBBSE 67%
 CERTIFICATION
 Elements of AI — University of Helsinki, Sep 2026
 Credential ID: 6tfcqp4lrry
+
+COURSEWORK
+Machine Learning, Deep Learning, Natural Language Processing, Generative AI, Large Language Models, Data Structures and Algorithms, DBMS, Python, Statistics / Data Analysis

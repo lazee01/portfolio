@@ -32,6 +32,7 @@ const education = [
   ['2021 — 2024', 'Diploma CSE', 'Brainware University', 'CGPA 6.5 / 10 · Core foundation in programming, data structures, databases, and software development.'],
   ['2021', 'Class 10', 'Barrackpore A. B. Model High School (H.S.)', 'WBBSE · 67%'],
 ]
+const coursework = ['Machine Learning', 'Deep Learning', 'Natural Language Processing', 'Generative AI', 'Large Language Models', 'Data Structures and Algorithms', 'DBMS', 'Python', 'Statistics / Data Analysis']
 type Project = {
   title: string
   description: string
@@ -46,8 +47,8 @@ type Project = {
 const projects: Project[] = [
   {
     title: 'GraphMind',
-    description: 'A scientific literature QA system combining RAG, vector retrieval, knowledge graphs, hierarchical retrieval, and multi-agent reasoning to turn dense PDFs into answers that show their evidence.',
-    stack: ['Python', 'RAG', 'FAISS', 'Neo4j', 'Multi-agent systems'],
+    description: 'A scientific literature QA system combining PDF processing, chunking, embeddings, RAG, vector retrieval, knowledge graphs, hierarchical retrieval, and multi-agent reasoning to produce evidence-grounded answers with verification and citation tracking.',
+    stack: ['Python', 'RAG', 'FAISS', 'Neo4j', 'Knowledge graphs', 'Multi-agent systems'],
     status: 'In progress',
     repoUrl: 'https://github.com/lazee01/graphmind',
     accent: 'cyan',
@@ -119,6 +120,7 @@ function App() {
           <div className="section-index">04 <span>/ ORIGIN STORY</span></div><div className="stage-heading"><h2>Learning in<br /><em>layers.</em></h2><p>Each chapter adds a new way to frame the problem.</p></div>
           <div className="education-list">{education.map(([date, title, org, detail], index) => <article key={date}><span className="edu-number">0{index + 1}</span><span className="edu-date">{date}</span><div><h3>{title}</h3><strong>{org}</strong><p>{detail}</p></div></article>)}</div>
           <div className="cert-band"><Orbit size={23} /><div><small>CERTIFICATION / SEP 2026</small><h3>Elements of AI — University of Helsinki</h3><p>Credential ID: 6tfcqp4lrry</p></div></div>
+          <div className="coursework-band"><small>COURSEWORK / FOUNDATIONS</small><div>{coursework.map((course) => <span key={course}>{course}</span>)}</div></div>
         </section>
 
         <section className="contact-stage stage" id="contact">
