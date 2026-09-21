@@ -121,6 +121,9 @@ function App() {
           </motion.div>
           <div className="hero-art" aria-hidden="true">
             {reducedMotion !== true && !isMobile && <Suspense fallback={null}><SpaceScene /></Suspense>}
+            <div className="hero-hud hud-top"><span>NEURAL FIELD / 01</span><b>ACTIVE</b></div>
+            <div className="hero-hud hud-side"><span>LATENCY</span><b>18ms</b><span>VECTOR DEPTH</span><b>04.8</b></div>
+            <div className="lens-flare" />
             <div className="particle-field"><i /><i /><i /><i /><i /><i /><i /><i /></div>
             <div className="orbital orbital-outer"><span className="orbit-node node-a" /><span className="orbit-node node-b" /></div>
             <div className="orbital orbital-middle"><span className="orbit-node node-c" /></div>
