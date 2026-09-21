@@ -1,184 +1,90 @@
 import { StrictMode, Suspense, lazy, useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { createRoot } from 'react-dom/client'
-import {
-  ArrowUpRight,
-  BrainCircuit,
-  Check,
-  ChevronDown,
-  CircleDot,
-  Database,
-  Download,
-  Github,
-  Layers3,
-  Mail,
-  MapPin,
-  Menu,
-  Network,
-  Orbit,
-  Phone,
-  Send,
-  Sparkles,
-  Terminal,
-  X,
-} from 'lucide-react'
+import { ArrowDownRight, ArrowUpRight, BrainCircuit, Check, Download, Github, Mail, Menu, Orbit, Phone, Send, Sparkles, X } from 'lucide-react'
 import './styles.css'
 
 const SpaceScene = lazy(() => import('./SpaceScene').then(({ SpaceScene }) => ({ default: SpaceScene })))
 
-const navItems = ['About', 'Skills', 'Experience', 'Projects', 'Contact']
-
-const skillGroups = [
-  { icon: Terminal, title: 'Languages & data', accent: 'cyan', items: ['Python', 'SQL', 'DSA', 'NumPy', 'Pandas', 'Matplotlib', 'Seaborn'] },
-  { icon: BrainCircuit, title: 'AI / machine learning', accent: 'violet', items: ['Machine Learning', 'Deep Learning', 'NLP', 'LLMs', 'Embeddings', 'PyTorch', 'Transformers', 'scikit-learn'] },
-  { icon: Network, title: 'GenAI & retrieval', accent: 'lime', items: ['RAG', 'Hugging Face', 'LangChain', 'LangGraph', 'FAISS', 'Multi-agent systems', 'Knowledge graphs', 'Neo4j'] },
-  { icon: Layers3, title: 'Production toolkit', accent: 'orange', items: ['FastAPI', 'Docker', 'MLflow', 'DVC', 'AWS', 'CI/CD', 'Git & GitHub', 'Jupyter / VS Code'] },
+const nav = ['about', 'capabilities', 'graphmind', 'journey', 'contact']
+const capabilities = [
+  ['01', 'Language systems', 'Python · SQL · NLP · LLMs · embeddings', 'cyan'],
+  ['02', 'Neural intelligence', 'ML · DL · PyTorch · Transformers · evaluation', 'violet'],
+  ['03', 'Retrieval architecture', 'RAG · FAISS · LangGraph · Neo4j · agents', 'lime'],
+  ['04', 'Production thinking', 'FastAPI · Docker · MLflow · DVC · AWS', 'orange'],
 ]
-
-const timeline = [
-  { date: '2024 — 2027', title: 'B.Tech CSE — AI & ML', org: 'Brainware University', detail: 'Building depth across machine learning, deep learning, NLP, generative AI, databases, and statistical analysis.' },
-  { date: '2021 — 2024', title: 'Diploma CSE', org: 'Brainware University', detail: 'CGPA 6.5 / 10 · Core foundation in programming, data structures, databases, and software development.' },
-  { date: '2021', title: 'Higher Secondary (H.S.)', org: 'Barrackpore A. B. Model High School', detail: 'WBBSE · 67%' },
+const education = [
+  ['2024 — 2027', 'B.Tech CSE — AI & ML', 'Brainware University', 'Building depth across machine learning, deep learning, NLP, generative AI, databases, and statistical analysis.'],
+  ['2021 — 2024', 'Diploma CSE', 'Brainware University', 'CGPA 6.5 / 10 · Core foundation in programming, data structures, databases, and software development.'],
+  ['2021', 'Higher Secondary (H.S.)', 'Barrackpore A. B. Model High School', 'WBBSE · 67%'],
 ]
 
 function App() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('home')
-  const [isMobile, setIsMobile] = useState(false)
   const reducedMotion = useReducedMotion()
-
+  const [menu, setMenu] = useState(false)
+  const [active, setActive] = useState('about')
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 700px)')
-    const updateMobile = () => setIsMobile(mediaQuery.matches)
-    updateMobile()
-    mediaQuery.addEventListener('change', updateMobile)
     const onScroll = () => {
-      const sections = [...document.querySelectorAll('main section[id]')]
-      const current = sections.find((section) => window.scrollY >= (section as HTMLElement).offsetTop - 180)
-      if (current) setActiveSection(current.id)
-      document.documentElement.style.setProperty('--scroll-progress', `${Math.min(window.scrollY / Math.max(document.body.scrollHeight - window.innerHeight, 1), 1)}`)
-    }
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add('is-visible')
+      const current = nav.find((id) => {
+        const section = document.getElementById(id)
+        return section && window.scrollY >= section.offsetTop - 240
       })
-    }, { threshold: 0.12 })
-    document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element))
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      mediaQuery.removeEventListener('change', updateMobile)
-      revealObserver.disconnect()
+      if (current) setActive(current)
     }
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  const closeMenu = () => setMenuOpen(false)
-
+  const close = () => setMenu(false)
   return (
-    <div className="site-shell">
-      <div className="space-layer space-stars" aria-hidden="true" />
-      <div className="space-layer space-nebula" aria-hidden="true" />
-      <div className="ambient ambient-one" />
-      <div className="ambient ambient-two" />
-      <header className="site-header">
-        <a className="brand" href="#home" onClick={closeMenu} aria-label="Rohit Paul home">
-          <span className="brand-mark">RP</span>
-          <span>rohit<span className="brand-dot">.</span>paul</span>
-        </a>
-        <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen}>
-          {menuOpen ? <X size={21} /> : <Menu size={21} />}
-        </button>
-        <nav className={`main-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation">
-          {navItems.map((item) => {
-            const id = item.toLowerCase()
-            return <a key={item} href={`#${id}`} className={activeSection === id ? 'active' : ''} onClick={closeMenu}>{item}</a>
-          })}
-          <a className="nav-resume" href="/rohit-paul-cv.txt" download>Resume <Download size={14} /></a>
-        </nav>
+    <div className="new-shell">
+      <div className="grain" aria-hidden="true" />
+      <header className="topbar">
+        <a href="#top" className="monogram" onClick={close}><span>R</span><small>PAUL / AI</small></a>
+        <nav className={menu ? 'open' : ''}>{nav.map((item) => <a key={item} className={active === item ? 'active' : ''} href={`#${item}`} onClick={close}>{item}</a>)}<a href="/rohit-paul-cv.txt" download className="download">CV <Download size={13} /></a></nav>
+        <button className="menu-button" onClick={() => setMenu(!menu)} aria-label={menu ? 'Close navigation' : 'Open navigation'} aria-expanded={menu}>{menu ? <X /> : <Menu />}</button>
       </header>
 
-      <main id="main-content">
-        <section className="hero section-wrap" id="home" aria-labelledby="hero-title">
-          <motion.div
-            className="hero-copy"
-            initial={reducedMotion ? false : { opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-          >
-            <div className="eyebrow"><span className="eyebrow-line" /> AI / ML ENGINEER <span className="status-dot" /> OPEN TO OPPORTUNITIES</div>
-            <h1 id="hero-title">Turning <em>intelligence</em><br />into <span className="outlined">impact.</span></h1>
-            <p className="hero-lede">I’m Rohit — a fresher AI/ML engineer exploring the space where <strong>language, knowledge, and systems</strong> meet.</p>
-            <div className="hero-actions">
-              <a className="button button-primary" href="#projects">See my work <ArrowUpRight size={17} /></a>
-              <a className="button button-ghost" href="mailto:rohgaming01@gmail.com">Let’s connect <Mail size={16} /></a>
-            </div>
-            <div className="hero-meta">
-              <span><MapPin size={15} /> India</span>
-              <span className="meta-divider" />
-              <span>Generative AI · NLP · Retrieval</span>
-            </div>
-          </motion.div>
-          <div className="hero-art" aria-hidden="true">
-            {reducedMotion !== true && !isMobile && <Suspense fallback={null}><SpaceScene /></Suspense>}
-            <div className="hero-hud hud-top"><span>NEURAL FIELD / 01</span><b>ACTIVE</b></div>
-            <div className="hero-hud hud-side"><span>LATENCY</span><b>18ms</b><span>VECTOR DEPTH</span><b>04.8</b></div>
-            <div className="lens-flare" />
-            <div className="particle-field"><i /><i /><i /><i /><i /><i /><i /><i /></div>
-            <div className="orbital orbital-outer"><span className="orbit-node node-a" /><span className="orbit-node node-b" /></div>
-            <div className="orbital orbital-middle"><span className="orbit-node node-c" /></div>
-            <div className="core"><BrainCircuit size={54} strokeWidth={1.25} /></div>
-            <div className="signal-card card-top"><span className="signal-icon"><Sparkles size={15} /></span><span>reasoning engine</span><strong>99.2%</strong></div>
-            <div className="signal-card card-bottom"><CircleDot size={13} /><span>retrieval layer</span><span className="live-pill">LIVE</span></div>
-            <span className="art-label label-one">01 / THINK</span><span className="art-label label-two">02 / RETRIEVE</span>
+      <main id="top">
+        <section className="cinema-hero">
+          <div className="hero-scene" aria-hidden="true">{!reducedMotion && <Suspense fallback={null}><SpaceScene /></Suspense>}<div className="scene-vignette" /><div className="scene-crosshair" /></div>
+          <div className="hero-content">
+            <p className="kicker"><span className="pulse-dot" /> AI / ML ENGINEER · GENERATIVE AI · NLP</p>
+            <motion.h1 initial={reducedMotion ? false : { opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9 }}>Building<br /><i>systems</i> that<br /><strong>think deeper.</strong></motion.h1>
+            <p className="hero-intro">Rohit Paul is an AI/ML Engineer exploring the frontier where language, knowledge, and reliable systems converge.</p>
+            <div className="hero-cta"><a className="primary-cta" href="#graphmind">Enter GraphMind <ArrowDownRight size={17} /></a><a className="text-cta" href="mailto:rohgaming01@gmail.com">Start a conversation <ArrowUpRight size={15} /></a></div>
           </div>
-          <a className="scroll-cue" href="#about"><span>Scroll to explore</span><ChevronDown size={16} /></a>
+          <div className="hero-readout"><span>FIELD 001</span><b>ONLINE</b><small>INTERACTIVE NEURAL SPACE</small></div>
+          <a className="hero-scroll" href="#about"><span>Scroll / navigate the field</span><ArrowDownRight size={18} /></a>
         </section>
 
-        <section className="about section-wrap reveal" id="about" aria-labelledby="about-title">
-          <div className="section-kicker">01 — THE HUMAN BEHIND THE MODELS</div>
-          <div className="about-grid">
-            <div><h2 id="about-title">Curious by default.<br /><span>Rigorous by design.</span></h2></div>
-            <div className="about-copy">
-              <p>I’m an AI/ML Engineer with a foundation across <strong>Python, machine learning, deep learning, NLP, and LLMs</strong>. I enjoy taking an ambiguous problem, finding the signal inside it, and shaping a system that can be trusted.</p>
-              <p>Right now, I’m focused on reliable retrieval systems, knowledge graphs, and agentic workflows — making AI outputs more grounded, traceable, and useful in the real world.</p>
-              <div className="about-facts"><div><span className="fact-number">04+</span><span>AI domains explored</span></div><div><span className="fact-number">01</span><span>flagship system in progress</span></div><div><span className="fact-number">∞</span><span>questions to investigate</span></div></div>
-            </div>
-          </div>
+        <section className="manifesto stage" id="about">
+          <div className="section-index">01 <span>/ PROFILE</span></div>
+          <div className="manifesto-grid"><h2>Curiosity is<br /><em>a technical advantage.</em></h2><div><p className="lead">I like difficult questions — the kind that need more than a model, and better than a guess.</p><p>My foundation spans Python, machine learning, deep learning, NLP, and LLMs. I’m especially interested in retrieval systems, knowledge graphs, and agentic workflows that make AI outputs grounded, traceable, and useful.</p><a className="line-link" href="tel:+917003762633">+91 7003762633 <ArrowUpRight size={14} /></a></div></div>
         </section>
 
-        <section className="skills section-wrap reveal" id="skills" aria-labelledby="skills-title">
-          <div className="section-heading"><div><div className="section-kicker">02 — MY TOOLBOX</div><h2 id="skills-title">Built to go from <span>notebook to north star.</span></h2></div><p>Tools are only useful when they help ideas travel further. This is the stack I use to get there.</p></div>
-          <div className="skill-grid">{skillGroups.map(({ icon: Icon, title, accent, items }) => <article className={`skill-card ${accent}`} key={title}><div className="skill-icon"><Icon size={21} /></div><h3>{title}</h3><div className="tag-list">{items.map((item) => <span key={item}>{item}</span>)}</div></article>)}</div>
+        <section className="capability-stage stage" id="capabilities">
+          <div className="section-index">02 <span>/ CAPABILITIES</span></div>
+          <div className="stage-heading"><h2>The stack behind<br /><em>the signal.</em></h2><p>Tools are a means. The point is to turn ambiguity into an intelligent, dependable system.</p></div>
+          <div className="capability-list">{capabilities.map(([number, title, detail, tone]) => <article className={`capability ${tone}`} key={number}><span className="cap-number">{number}</span><h3>{title}</h3><p>{detail}</p><ArrowUpRight size={18} /></article>)}</div>
         </section>
 
-        <section className="experience section-wrap reveal" id="experience" aria-labelledby="experience-title">
-          <div className="section-kicker">03 — THE ROAD SO FAR</div>
-          <div className="experience-heading"><h2 id="experience-title">Learning in <span>layers.</span></h2><p>Every chapter adds a new way to frame the problem.</p></div>
-          <div className="timeline">{timeline.map((item, index) => <article className="timeline-item" key={item.title}><div className="timeline-marker"><span>0{index + 1}</span></div><div className="timeline-date">{item.date}</div><div className="timeline-content"><h3>{item.title}</h3><p className="timeline-org">{item.org}</p><p>{item.detail}</p></div></article>)}</div>
+        <section className="graphmind-stage stage" id="graphmind">
+          <div className="section-index">03 <span>/ FLAGSHIP SYSTEM</span></div>
+          <div className="graphmind-layout"><div className="graphmind-art" aria-hidden="true"><div className="art-orbit orbit-a" /><div className="art-orbit orbit-b" /><div className="art-core"><BrainCircuit size={32} /></div><div className="art-node node-pdf">PDF</div><div className="art-node node-faiss">FAISS</div><div className="art-node node-neo">NEO4J</div><span className="art-line line-a" /><span className="art-line line-b" /><span className="art-line line-c" /></div><div className="graphmind-copy"><p className="kicker">RESEARCH ASSISTANT / IN PROGRESS</p><h2>Graph<br /><em>Mind.</em></h2><h3>Scientific Literature QA System</h3><p>A research assistant that combines RAG, vector retrieval, knowledge graphs, hierarchical retrieval, and multi-agent reasoning to turn dense PDFs into answers that show their evidence.</p><div className="check-list"><span><Check size={14} /> Evidence-grounded verification</span><span><Check size={14} /> Citation tracking & graph reasoning</span><span><Check size={14} /> Query planning across retrieval layers</span></div><a className="primary-cta small" href="https://github.com/lazee01/portfolio" target="_blank" rel="noreferrer">View repository <Github size={15} /></a></div></div>
         </section>
 
-        <section className="projects section-wrap reveal" id="projects" aria-labelledby="projects-title">
-          <div className="section-kicker">04 — SELECTED PROJECT</div>
-          <article className="project-feature" aria-labelledby="projects-title">
-            <div className="project-visual"><div className="visual-grid" /><div className="graph-line line-one" /><div className="graph-line line-two" /><div className="graph-node graph-main"><Database size={22} /><span>GraphMind</span></div><div className="graph-node graph-small small-one">PDF</div><div className="graph-node graph-small small-two">FAISS</div><div className="graph-node graph-small small-three">Neo4j</div><div className="visual-caption">EVIDENCE / RETRIEVAL / REASONING</div></div>
-            <div className="project-copy"><div className="project-type"><Sparkles size={15} /> FLAGSHIP BUILD</div><h2 id="projects-title">GraphMind<span>.</span></h2><h3>Scientific Literature QA System</h3><p>A research assistant in progress — combining RAG, vector search, knowledge graphs, and multi-agent systems to turn dense scientific PDFs into answers that show their work.</p><div className="project-points"><span><Check size={14} /> PDF processing & chunking</span><span><Check size={14} /> Evidence-grounded verification</span><span><Check size={14} /> Citation tracking & graph reasoning</span></div><div className="project-stack">{['Python', 'RAG', 'FAISS', 'Neo4j', 'LangGraph'].map((item) => <span key={item}>{item}</span>)}</div><div className="project-actions"><span className="project-status"><span /> Currently developing</span><a className="project-link" href="https://github.com/lazee01/portfolio" target="_blank" rel="noreferrer">View repository <ArrowUpRight size={15} /></a></div></div>
-          </article>
+        <section className="journey-stage stage" id="journey">
+          <div className="section-index">04 <span>/ ORIGIN STORY</span></div><div className="stage-heading"><h2>Learning in<br /><em>layers.</em></h2><p>Each chapter adds a new way to frame the problem.</p></div>
+          <div className="education-list">{education.map(([date, title, org, detail], index) => <article key={date}><span className="edu-number">0{index + 1}</span><span className="edu-date">{date}</span><div><h3>{title}</h3><strong>{org}</strong><p>{detail}</p></div></article>)}</div>
+          <div className="cert-band"><Orbit size={23} /><div><small>CERTIFICATION / SEP 2026</small><h3>Elements of AI — University of Helsinki</h3><p>Credential ID: 6tfcqp4lrry</p></div></div>
         </section>
 
-        <section className="education section-wrap reveal">
-          <div className="education-card"><div><div className="section-kicker">05 — LEARNING NEVER STOPS</div><h2>Certified curiosity.</h2></div><div className="cert-detail"><div className="cert-seal"><Orbit size={22} /></div><div><h3>Elements of AI</h3><p>University of Helsinki · Sep 2026</p><small>Credential ID: 6tfcqp4lrry</small></div></div><div className="coursework"><span>Coursework</span><p>ML · DL · NLP · GenAI · LLMs · DSA · DBMS · Python · Statistics / Data Analysis</p></div></div>
-        </section>
-
-        <section className="contact section-wrap reveal" id="contact" aria-labelledby="contact-title">
-          <div className="contact-card"><div className="contact-copy"><div className="section-kicker">06 — HAVE A QUESTION?</div><h2 id="contact-title">Let’s make<br /><span>something meaningful.</span></h2><p>Whether you want to talk about an AI idea, a collaboration, or the future of intelligent systems — my inbox is open.</p><a className="email-link" href="mailto:rohgaming01@gmail.com">rohgaming01@gmail.com <ArrowUpRight size={17} /></a></div><div className="contact-aside"><div className="contact-orb"><Send size={28} /></div><span>Available for meaningful<br />conversations.</span><div className="socials"><a href="mailto:rohgaming01@gmail.com" aria-label="Email Rohit"><Mail size={18} /></a><a href="tel:+917003762633" aria-label="Call Rohit"><Phone size={18} /></a><a href="https://github.com/lazee01/portfolio" target="_blank" rel="noreferrer" aria-label="Rohit's GitHub repository"><Github size={18} /></a></div></div></div>
-        </section>
+        <section className="contact-stage stage" id="contact">
+          <div className="contact-glow" /><div className="section-index">05 <span>/ OPEN CHANNEL</span></div><div className="contact-layout"><h2>Let’s make<br /><em>something real.</em></h2><div><p>Have an AI idea, a collaboration, or a question about intelligent systems? My inbox is open.</p><a className="contact-email" href="mailto:rohgaming01@gmail.com">rohgaming01@gmail.com <ArrowUpRight size={18} /></a><div className="contact-links"><a href="mailto:rohgaming01@gmail.com"><Mail size={16} /> Email</a><a href="tel:+917003762633"><Phone size={16} /> Call</a><a href="https://github.com/lazee01/portfolio" target="_blank" rel="noreferrer"><Github size={16} /> GitHub</a></div></div></div></section>
       </main>
-      <footer><span>© 2026 Rohit Paul</span><span>Designed & built with intention <span className="footer-heart">✦</span></span><a href="#home">Back to top ↑</a></footer>
+      <footer><span>© 2026 ROHIT PAUL / AI & ML</span><span>Built for the next question <Sparkles size={13} /></span><a href="#top">↑ Top</a></footer>
     </div>
   )
 }
 
-const root = document.getElementById('root')
-if (!root) throw new Error('App root element was not found')
-createRoot(root).render(<StrictMode><App /></StrictMode>)
+createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>)
