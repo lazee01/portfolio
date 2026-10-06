@@ -51,6 +51,7 @@ const projects: Project[] = [
     stack: ['Python', 'RAG', 'FAISS', 'Neo4j', 'Knowledge graphs', 'Multi-agent systems'],
     status: 'In progress',
     repoUrl: 'https://github.com/lazee01/graphmind',
+    demoUrl: 'https://web-graphmind.web.app/',
     accent: 'cyan',
     visual: 'graphmind',
   },
@@ -111,7 +112,7 @@ function App() {
           <div className="project-list">
             {projects.map((project) => <article className={`project-card ${project.accent}`} id={project.title === 'GraphMind' ? 'graphmind' : undefined} key={project.title}>
               {project.visual === 'graphmind' && <div className="graphmind-art" aria-hidden="true"><div className="art-orbit orbit-a" /><div className="art-orbit orbit-b" /><div className="art-core"><BrainCircuit size={32} /></div><div className="art-node node-pdf">PDF</div><div className="art-node node-faiss">FAISS</div><div className="art-node node-neo">NEO4J</div><span className="art-line line-a" /><span className="art-line line-b" /><span className="art-line line-c" /></div>}
-              <div className="project-copy"><div className="project-meta"><span>{project.status}</span><span>{project.accent.toUpperCase()} / {String(projects.indexOf(project) + 1).padStart(2, '0')}</span></div><h3>{project.title}</h3><p>{project.description}</p><div className="project-stack">{project.stack.map((item) => <span key={item}>{item}</span>)}</div><div className="project-links"><a className="primary-cta small" href={project.repoUrl} target="_blank" rel="noreferrer" aria-label={`View ${project.title} repository`}>View {project.title} repository <Github size={15} /></a>{project.demoUrl && <a className="text-cta" href={project.demoUrl} target="_blank" rel="noreferrer">Live demo <ArrowUpRight size={14} /></a>}</div></div>
+              <div className="project-copy"><div className="project-meta"><span>{project.status}</span><span>{project.accent.toUpperCase()} / {String(projects.indexOf(project) + 1).padStart(2, '0')}</span></div><h3>{project.title}</h3><p>{project.description}</p><div className="project-stack">{project.stack.map((item) => <span key={item}>{item}</span>)}</div><div className="project-links"><a className="primary-cta small" href={project.repoUrl} target="_blank" rel="noreferrer" aria-label={`View ${project.title} repository`}>View {project.title} repository <Github size={15} /></a>{project.demoUrl && <a className="text-cta" href={project.demoUrl} target="_blank" rel="noreferrer" aria-label={`Open ${project.title} live demo`}>Open live demo <ArrowUpRight size={14} /></a>}</div></div>
             </article>)}
           </div>
         </section>
