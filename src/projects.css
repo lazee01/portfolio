@@ -101,6 +101,15 @@
 
 .project-links .primary-cta.small { margin-top: 28px; }
 
+.project-links .demo-cta {
+  background: var(--lime);
+  box-shadow: 0 0 26px rgba(217, 249, 157, .12);
+}
+
+.project-links .demo-cta:hover {
+  box-shadow: 0 14px 35px rgba(217, 249, 157, .24);
+}
+
 @media (max-width: 800px) {
   .project-card { grid-template-columns: 1fr; }
   .project-card .graphmind-art { min-height: 340px; }
